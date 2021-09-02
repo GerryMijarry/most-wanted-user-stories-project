@@ -78,7 +78,6 @@ function searchByName(people){
       return false;
     }
   });
-  // TODO: find the person single person object using the name they entered.
   return foundPerson[0];
 }
 
