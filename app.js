@@ -28,23 +28,23 @@ function searchTypeSelection (results) {
       break;
     case 'eye color':
       results = searchByEyeColor(results);
-      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
+      displayResultsAlert(results);      
       break;
     case 'gender':
       results = searchByGender(results);
-      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
+      displayResultsAlert(results); 
       break;
     case 'height':
       results = searchByHeight(results);
-      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
+      displayResultsAlert(results); 
       break;
     case 'occupation':
       results = searchByOccupation(results);
-      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
+      displayResultsAlert(results); 
       break;
     case 'weight':
       results = searchByWeight(results);
-      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
+      displayResultsAlert(results); 
       break;  
     default:
     app(people); // restart app
@@ -197,6 +197,14 @@ function displayPerson(person){
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
+}
+
+function displayResultsAlert(results) {
+  if (results == 1) {
+    alert("We found 1 person that matches your search. Press enter for the options to diplay that person's info.");
+  } else {
+    alert("We found " + results.length + " results. Please select another trait in the following menu to narrow down your results");
+  }
 }
 
 //#endregion
