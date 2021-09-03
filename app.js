@@ -69,6 +69,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
+      displayPerson(person)
     // TODO: get person's info
     break;
     case "family":
@@ -138,6 +139,7 @@ function searchByGender(people){
 
 function searchByHeight(people){
   let height = promptFor("What is this persons height?", autoValid);
+  height = parseInt(height)
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.height === height){
       return true;
@@ -164,6 +166,7 @@ function searchByOccupation(people){
 
 function searchByWeight(people){
   let weight = promptFor("What is this persons Weight?", autoValid);
+  weight = parseInt(weight) 
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.weight === weight){
       return true;
@@ -194,7 +197,12 @@ function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n"
+  personInfo += "Height: " + person.height + "\n"
+  personInfo += "Weight: " + person.weight + "\n"
+  personInfo += "Date of Birth: " + person.dob + "\n"
+  personInfo += "Occupation: " + person.occupation + "\n"
+  personInfo += "Eye Color: " + person.eyeColor + "\n"
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
 }
