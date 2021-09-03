@@ -8,34 +8,51 @@
 
 // app is the function called to start the entire application
 function app(people){
-  let searchType = promptFor("Type 'name' if you know the name of the person you are looking for or to search for them by up to 5 traits, type 'eye color', 'gender', 'height', 'occupation' or 'weight'", autoValid).toLowerCase();
   let searchResults;
+  searchResults = searchTypeSelection(people);
+
+  while (searchResults.length != 1) {
+    searchResults = searchTypeSelection(searchResults);
+  }
+
+  mainMenu(searchResults[0], people);
+  
+}
+
+function searchTypeSelection (results) {
+  let searchType = promptFor("Type 'name' if you know the name of the person you are looking for or to search for them by up to 5 traits, type 'eye color', 'gender', 'height', 'occupation' or 'weight'", autoValid).toLowerCase();
+  
   switch(searchType){
     case 'name':
-      searchResults = searchByName(people);
+      results = searchByName(results);
       break;
     case 'eye color':
-      searchResults = searchByEyeColor(people);
+      results = searchByEyeColor(results);
+      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
       break;
     case 'gender':
-      searchResults = searchByGender(people);
+      results = searchByGender(results);
+      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
       break;
     case 'height':
-      searchResults = searchByHeight(people);
+      results = searchByHeight(results);
+      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
       break;
     case 'occupation':
-      searchResults = searchByOccupation(people);
+      results = searchByOccupation(results);
+      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
       break;
     case 'weight':
-      searchResults = searchByWeight(people);
+      results = searchByWeight(results);
+      alert("We found " + results.length + " results. Please select another trait to narrow down your results.");
       break;  
     default:
     app(people); // restart app
       break;
   }
-  
-  // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+
+  return results;
+
 }
 
 // Menu function to call once you find who you are looking for
@@ -90,7 +107,7 @@ function searchByName(people){
       return false;
     }
   });
-  return foundPerson[0];
+  return foundPerson;
 }
 
 function searchByEyeColor(people){
@@ -103,7 +120,7 @@ function searchByEyeColor(people){
       return false;
     }
   });
-  return foundPerson[0]
+  return foundPerson;
 }
 
 function searchByGender(people){
@@ -116,7 +133,7 @@ function searchByGender(people){
       return false;
     }
   })
-  return foundPerson[0]
+  return foundPerson;
 }
 
 function searchByHeight(people){
@@ -129,7 +146,7 @@ function searchByHeight(people){
       return false;
     }
   });
-  return foundPerson[0]
+  return foundPerson;
 }
 
 function searchByOccupation(people){
@@ -142,7 +159,7 @@ function searchByOccupation(people){
       return false;
     }
   })
-  return foundPerson[0]
+  return foundPerson;
 }
 
 function searchByWeight(people){
@@ -155,7 +172,7 @@ function searchByWeight(people){
       return false;
     }
   })
-  return foundPerson[0]
+  return foundPerson;
 }
 
 
