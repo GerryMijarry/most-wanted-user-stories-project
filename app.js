@@ -8,22 +8,51 @@
 
 // app is the function called to start the entire application
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   let searchResults;
+  searchResults = searchTypeSelection(people);
+
+  while (searchResults.length != 1) {
+    searchResults = searchTypeSelection(searchResults);
+  }
+
+  mainMenu(searchResults[0], people);
+  
+}
+
+function searchTypeSelection (results) {
+  let searchType = promptFor("Type 'name' if you know the name of the person you are looking for or to search for them by up to 5 traits, type 'eye color', 'gender', 'height', 'occupation' or 'weight'", autoValid).toLowerCase();
+  
   switch(searchType){
-    case 'yes':
-      searchResults = searchByName(people);
+    case 'name':
+      results = searchByName(results);
       break;
-    case 'no':
-      // TODO: search by traits
+    case 'eye color':
+      results = searchByEyeColor(results);
+      displayResultsAlert(results);      
       break;
-      default:
+    case 'gender':
+      results = searchByGender(results);
+      displayResultsAlert(results); 
+      break;
+    case 'height':
+      results = searchByHeight(results);
+      displayResultsAlert(results); 
+      break;
+    case 'occupation':
+      results = searchByOccupation(results);
+      displayResultsAlert(results); 
+      break;
+    case 'weight':
+      results = searchByWeight(results);
+      displayResultsAlert(results); 
+      break;  
+    default:
     app(people); // restart app
       break;
   }
-  
-  // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+
+  return results;
+
 }
 
 // Menu function to call once you find who you are looking for
@@ -78,13 +107,11 @@ function searchByName(people){
       return false;
     }
   });
-  return foundPerson[0];
+  return foundPerson;
 }
 
-//unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
   let eyeColor = promptFor("What is this persons eye color?", autoValid);
-  
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.eyeColor === eyeColor){
       return true;
@@ -93,40 +120,11 @@ function searchByEyeColor(people){
       return false;
     }
   });
-  return foundPerson[0]
-}
-//TODO: add other trait filter functions here.
-function searchByHeight(people){
-  let height = promptFor("What is this persons height?", autoValid);
-
-  let foundPerson = people.filter(function(potentialMatch){
-    if(potentialMatch.height === height){
-      return true;
-    }
-    else{
-      return false;
-    }
-  });
-  return foundPerson[0]
-}
-
-function searchByWeight(people){
-  let weight = promptFor("What is this persons Weight?", autoValid);
-
-  let foundPerson = people.filter(function(potentialMatch){
-    if(potentialMatch.weight === weight){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  return foundPerson[0]
+  return foundPerson;
 }
 
 function searchByGender(people){
   let gender = promptFor("What is this persons gender?", autoValid);
-  
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.gender === gender){
       return true;
@@ -135,22 +133,48 @@ function searchByGender(people){
       return false;
     }
   })
-  return foundPerson[0]
+  return foundPerson;
+}
+
+function searchByHeight(people){
+  let height = promptFor("What is this persons height?", autoValid);
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.height === height){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+  return foundPerson;
 }
 
 function searchByOccupation(people){
-  let job = promptFor("What is this persons occupation?", autoValid);
-  
+  let occupation = promptFor("What is this persons occupation?", autoValid);
   let foundPerson = people.filter(function(potentialMatch){
-    if(potentialMatch.job === job){
+    if(potentialMatch.occupation === occupation){
       return true;
     }
     else{
       return false;
     }
   })
-  return foundPerson[0]
+  return foundPerson;
 }
+
+function searchByWeight(people){
+  let weight = promptFor("What is this persons Weight?", autoValid);
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.weight === weight){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson;
+}
+
 
 //#endregion
 
@@ -173,6 +197,14 @@ function displayPerson(person){
   personInfo += "Last Name: " + person.lastName + "\n";
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
+}
+
+function displayResultsAlert(results) {
+  if (results == 1) {
+    alert("We found 1 person that matches your search. Press enter for the options to diplay that person's info.");
+  } else {
+    alert("We found " + results.length + " results. Please select another trait in the following menu to narrow down your results");
+  }
 }
 
 //#endregion
