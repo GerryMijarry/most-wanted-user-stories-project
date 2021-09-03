@@ -8,16 +8,28 @@
 
 // app is the function called to start the entire application
 function app(people){
-  let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let searchType = promptFor("Type 'name' if you know the name of the person you are looking for or to search for them by up to 5 traits, type 'eye color', 'gender', 'height', 'occupation' or 'weight'", autoValid).toLowerCase();
   let searchResults;
   switch(searchType){
-    case 'yes':
+    case 'name':
       searchResults = searchByName(people);
       break;
-    case 'no':
-      // TODO: search by traits
+    case 'eye color':
+      searchResults = searchByEyeColor(people);
       break;
-      default:
+    case 'gender':
+      searchResults = searchByGender(people);
+      break;
+    case 'height':
+      searchResults = searchByHeight(people);
+      break;
+    case 'occupation':
+      searchResults = searchByOccupation(people);
+      break;
+    case 'weight':
+      searchResults = searchByWeight(people);
+      break;  
+    default:
     app(people); // restart app
       break;
   }
