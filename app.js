@@ -83,12 +83,74 @@ function searchByName(people){
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
+  let eyeColor = promptFor("What is this persons eye color?", autoValid);
+  
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.eyeColor === eyeColor){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+  return foundPerson[0]
+}
+//TODO: add other trait filter functions here.
+function searchByHeight(people){
+  let height = promptFor("What is this persons height?", autoValid);
 
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.height === height){
+      return true;
+    }
+    else{
+      return false;
+    }
+  });
+  return foundPerson[0]
 }
 
-//TODO: add other trait filter functions here.
+function searchByWeight(people){
+  let weight = promptFor("What is this persons Weight?", autoValid);
 
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.weight === weight){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson[0]
+}
 
+function searchByGender(people){
+  let gender = promptFor("What is this persons gender?", autoValid);
+  
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.gender === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson[0]
+}
+
+function searchByOccupation(people){
+  let job = promptFor("What is this persons occupation?", autoValid);
+  
+  let foundPerson = people.filter(function(potentialMatch){
+    if(potentialMatch.job === job){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPerson[0]
+}
 
 //#endregion
 
