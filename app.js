@@ -11,47 +11,64 @@ function app(people){
   let searchResults;
   searchResults = searchTypeSelection(people);
 
-  while (searchResults.length != 1) {
-    searchResults = searchTypeSelection(searchResults);
-  }
 
   mainMenu(searchResults[0], people);
   
 }
 
 function searchTypeSelection (results) {
-  let searchType = promptFor("Type 'name' if you know the name of the person you are looking for or to search for them by up to 5 traits, type 'eye color', 'gender', 'height', 'occupation' or 'weight'", autoValid).toLowerCase();
-  
-  switch(searchType){
-    case 'name':
-      results = searchByName(results);
-      break;
-    case 'eye color':
-      results = searchByEyeColor(results);
-      displayResultsAlert(results);      
-      break;
-    case 'gender':
-      results = searchByGender(results);
-      displayResultsAlert(results); 
-      break;
-    case 'height':
-      results = searchByHeight(results);
-      displayResultsAlert(results); 
-      break;
-    case 'occupation':
-      results = searchByOccupation(results);
-      displayResultsAlert(results); 
-      break;
-    case 'weight':
-      results = searchByWeight(results);
-      displayResultsAlert(results); 
-      break;  
-    default:
-    app(people); // restart app
-      break;
-  }
+  let searchType = promptFor("Type 'name' if you know the name of the person you are looking for or to search by trait use the following syntax: trait:value. You can search by up to five total traits and the possible traits are: 'eyecolor', 'gender', 'height', 'occupation' or 'weight'", autoValid).toLowerCase();
 
-  return results;
+
+  let searchQuery = searchType.split(" ");
+
+  let searchResult = results;
+
+
+  for (let i = 0; i < searchQuery.length; i++) {
+    
+      if ((searchQuery[i].startsWith("name:")) && searchResult.length > 1) {
+
+        searchResult = searchByName();
+
+      } else if ((searchQuery[i].startsWith("eyecolor:")) && (searchResult.length > 1)) {
+
+        let eyes = searchQuery[i].slice(9);
+        searchResult = searchByEyeColor(searchResult, eyes);
+
+      } else if ((searchQuery[i].startsWith("gender:")) && (searchResult.length > 1)) {
+
+        let gender = searchQuery[i].slice(7);
+        searchResult = searchByGender(searchResult, gender);
+
+      } else if ((searchQuery[i].startsWith("height:")) && (searchResult.length > 1)) {
+
+        let height = searchQuery[i].slice(7);
+        searchResult = searchByHeight(searchResult, height);
+
+      } else if ((searchQuery[i].startsWith("occupation:")) && (searchResult.length > 1)) {
+
+        let occupation = searchQuery[i].slice(11);
+        searchResult = searchByOccupation(searchResult, occupation);
+
+      } else if ((searchQuery[i].startsWith("weight:")) && (searchResult.length > 1)) {
+
+        let weight = searchQuery[i].slice(7);
+        searchResult = searchByWeight(searchResult, weight);  
+
+      } 
+
+
+
+    }
+  
+
+  if (searchResult.length > 1) {
+    alert("Sorry your query did not return any exact matches. The app will now restart.");
+    app(people); // restart app
+  } else if (searchResult.length == 1) {
+    return searchResult;
+  }
 
 }
 
@@ -110,8 +127,7 @@ function searchByName(people){
   return foundPerson;
 }
 
-function searchByEyeColor(people){
-  let eyeColor = promptFor("What is this persons eye color?", autoValid);
+function searchByEyeColor(people, eyeColor){
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.eyeColor === eyeColor){
       return true;
@@ -123,8 +139,7 @@ function searchByEyeColor(people){
   return foundPerson;
 }
 
-function searchByGender(people){
-  let gender = promptFor("What is this persons gender?", autoValid);
+function searchByGender(people, gender){
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.gender === gender){
       return true;
@@ -136,8 +151,7 @@ function searchByGender(people){
   return foundPerson;
 }
 
-function searchByHeight(people){
-  let height = promptFor("What is this persons height?", autoValid);
+function searchByHeight(people, height){
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.height === height){
       return true;
@@ -149,8 +163,7 @@ function searchByHeight(people){
   return foundPerson;
 }
 
-function searchByOccupation(people){
-  let occupation = promptFor("What is this persons occupation?", autoValid);
+function searchByOccupation(people, occupation){
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.occupation === occupation){
       return true;
@@ -162,8 +175,7 @@ function searchByOccupation(people){
   return foundPerson;
 }
 
-function searchByWeight(people){
-  let weight = promptFor("What is this persons Weight?", autoValid);
+function searchByWeight(people, weight){
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.weight === weight){
       return true;
@@ -185,9 +197,10 @@ function searchByWeight(people){
 
 // alerts a list of people
 function displayPeople(people){
-  alert(people.map(function(person){
-    return person.firstName + " " + person.lastName;
-  }).join("\n"));
+  if (people.length > 1) {
+    alert("We found the " + people.length + " people below. Please select another trait in the following menu to narrow down your results.\n" 
+    + people.map(function(person){return person.firstName + " " + person.lastName;}).join("\n"));
+  }
 }
 
 function displayPerson(person){
@@ -200,10 +213,8 @@ function displayPerson(person){
 }
 
 function displayResultsAlert(results) {
-  if (results == 1) {
-    alert("We found 1 person that matches your search. Press enter for the options to diplay that person's info.");
-  } else {
-    alert("We found " + results.length + " results. Please select another trait in the following menu to narrow down your results");
+  if (results > 1) {
+    alert();
   }
 }
 
