@@ -27,7 +27,7 @@ function searchTypeSelection (results) {
 
   for (let i = 0; i < searchQuery.length; i++) {
     
-      if ((searchQuery[i].startsWith("name:")) && searchResult.length > 1) {
+      if ((searchQuery[i].startsWith("name")) && searchResult.length > 1) {
 
         searchResult = searchByName();
 
