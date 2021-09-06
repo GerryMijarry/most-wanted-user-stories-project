@@ -64,7 +64,7 @@ function searchTypeSelection (results) {
   
 
   if (searchResult.length > 1) {
-    alert("Sorry your query did not return any exact matches. The app will now restart.");
+    displayPeople(searchResult);
     app(people); // restart app
   } else if (searchResult.length == 1) {
     return searchResult;
@@ -152,9 +152,8 @@ function searchByGender(people, gender){
   return foundPerson;
 }
 
-function searchByHeight(people){
-  let height = promptFor("What is this persons height?", autoValid);
-  height = parseInt(height)
+function searchByHeight(people, height){
+  heightNum = parseInt(innerHeight); 
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.height === height){
       return true;
@@ -178,11 +177,10 @@ function searchByOccupation(people, occupation){
   return foundPerson;
 }
 
-function searchByWeight(people){
-  let weight = promptFor("What is this persons Weight?", autoValid);
-  weight = parseInt(weight) 
+function searchByWeight(people, weight){
+  weightNum = parseInt(weight); 
   let foundPerson = people.filter(function(potentialMatch){
-    if(potentialMatch.weight === weight){
+    if(potentialMatch.weightNum === weight){
       return true;
     }
     else{
@@ -202,10 +200,9 @@ function searchByWeight(people){
 
 // alerts a list of people
 function displayPeople(people){
-  if (people.length > 1) {
-    alert("We found the " + people.length + " people below. Please select another trait in the following menu to narrow down your results.\n" 
-    + people.map(function(person){return person.firstName + " " + person.lastName;}).join("\n"));
-  }
+
+    let peopleList = people.map(function(person){return person.firstName + " " + person.lastName;});
+    alert("We found the " + people.length + " people below. Please add another trait to your search string during your initial search to narrow down your results.\n" + peopleList.join("\n"));
 }
 
 function displayPerson(person){
