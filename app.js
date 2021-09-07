@@ -94,6 +94,7 @@ function mainMenu(person, people){
     // TODO: get person's family
     break;
     case "descendants":
+      displayDescendants(person)
     // TODO: get person's descendants
     break;
     case "restart":
@@ -232,6 +233,14 @@ function displayFamily(person){
   familyInfo += "Date of Birth: " + person.dob + "\n";
   alert(familyInfo);
 }
+
+function displayDescendants(person){
+  let descendantInfo = "First Name: " + person.firstName + "\n";
+  descendantInfo = "Last Name: " + person.lastName + "\n";
+  descendantInfo = "Date of birth: " + person.dob + "\n";
+  alert(descendantInfo);
+}
+
 
 //#endregion
 
