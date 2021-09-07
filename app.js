@@ -90,6 +90,7 @@ function mainMenu(person, people){
     // TODO: get person's info
     break;
     case "family":
+      displayFamily(person)
     // TODO: get person's family
     break;
     case "descendants":
@@ -223,6 +224,13 @@ function displayResultsAlert(results) {
   if (results > 1) {
     alert();
   }
+}
+
+function displayFamily(person){
+  let familyInfo = "First Name: " + person.firstName + "\n";
+  familyInfo += "Last Name: " + person.lastName + "\n";
+  familyInfo += "Date of Birth: " + person.dob + "\n";
+  alert(familyInfo);
 }
 
 //#endregion
