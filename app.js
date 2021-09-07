@@ -90,9 +90,11 @@ function mainMenu(person, people){
     // TODO: get person's info
     break;
     case "family":
+      displayFamily(person)
     // TODO: get person's family
     break;
     case "descendants":
+      displayDescendants(person)
     // TODO: get person's descendants
     break;
     case "restart":
@@ -224,6 +226,21 @@ function displayResultsAlert(results) {
     alert();
   }
 }
+
+function displayFamily(person){
+  let familyInfo = "First Name: " + person.firstName + "\n";
+  familyInfo += "Last Name: " + person.lastName + "\n";
+  familyInfo += "Date of Birth: " + person.dob + "\n";
+  alert(familyInfo);
+}
+
+function displayDescendants(person){
+  let descendantInfo = "First Name: " + person.firstName + "\n";
+  descendantInfo = "Last Name: " + person.lastName + "\n";
+  descendantInfo = "Date of birth: " + person.dob + "\n";
+  alert(descendantInfo);
+}
+
 
 //#endregion
 
