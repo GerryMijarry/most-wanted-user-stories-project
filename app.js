@@ -29,7 +29,7 @@ function searchTypeSelection (results) {
     
       if ((searchQuery[i].startsWith("name")) && searchResult.length > 1) {
 
-        searchResult = searchByName();
+        searchResult = searchByName(searchResult);
 
       } else if ((searchQuery[i].startsWith("eyecolor:")) && (searchResult.length > 1)) {
 
